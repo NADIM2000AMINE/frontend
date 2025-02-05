@@ -1,0 +1,39 @@
+<div class="task-container">
+    <h2>My Tasks</h2>
+  
+    <div class="add-task">
+      <h3>Add New Task</h3>
+      <input [(ngModel)]="newTask.title" placeholder="Title" class="form-input">
+      <textarea [(ngModel)]="newTask.description" placeholder="Description" class="form-input"></textarea>
+      <select [(ngModel)]="newTask.status" class="form-input">
+        <option value="TODO">To Do</option>
+        <option value="IN_PROGRESS">In Progress</option>
+        <option value="DONE">Done</option>
+      </select>
+      <button (click)="addTask()" class="btn-primary">Add Task</button>
+    </div>
+    <div class="search-bar">
+        <input [(ngModel)]="searchQuery" (input)="searchTasks()" placeholder="Search tasks..." class="form-input">
+      </div>
+    <div class="task-list">
+      <div *ngFor="let task of paginatedTasks()" class="task-card">
+        <div [class]="'task-status ' + task.status.toLowerCase()">{{task.status}}</div>
+        <h3>{{task.title}}</h3>
+        <p>{{task.description}}</p>
+        <div class="task-actions">
+          <select [(ngModel)]="task.status" (change)="updateTask(task)">
+            <option value="TODO">To Do</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+          <button (click)="deleteTask(task)" class="btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage >= totalPages">Next</button>
+      </div>
+  </div>
+  

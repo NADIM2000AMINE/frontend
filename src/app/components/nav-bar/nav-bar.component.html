@@ -1,0 +1,14 @@
+<nav class="navbar">
+    <div class="brand">Task Manager</div>
+    <div class="nav-links">
+      <ng-container *ngIf="!authService.isAuthenticated()">
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      </ng-container>
+      <ng-container *ngIf="authService.isAuthenticated()">
+        <a routerLink="/tasks">My Tasks</a>
+        <a href="#" (click)="logout($event)">Logout</a>
+      </ng-container>
+    </div>
+  </nav>
+  
